@@ -5,7 +5,6 @@ package com.example.dellpc.sorting;
  */
 public class IntContainer {
     public int value;
-
     public IntContainer(int initialValue) {
         value = initialValue;
     }

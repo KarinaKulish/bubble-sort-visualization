@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">Example Animation Image</string>
-    <string name="btn_name_one">Анимация 1</string>
-    <string name="btn_name_two">Анимация 2</string>
-    <string name="btn_name_three">Анимация 2</string>
+    <string name="app_name">Bubble sort visualization</string>
+    <string name="btn_name_one">Shuffle</string>
+    <string name="btn_name_two">Bubble sort</string>
+    <string name="description">Displays sheep with numbers</string>
+    <string name="description1">Displays ufo</string>
 </resources>
 
