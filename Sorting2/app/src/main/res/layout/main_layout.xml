@@ -6,20 +6,20 @@
     android:orientation="horizontal">
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/buttonSort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:onClick="onAnimationImageFour"
+        android:onClick="onAnimationSort"
         android:padding="15dp"
         android:text="@string/btn_name_two"
         android:textSize="16sp" />
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonShuffle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button"
+        android:layout_toStartOf="@+id/buttonSort"
         android:onClick="onAnimationShuffle"
         android:padding="15dp"
         android:text="@string/btn_name_one"
@@ -28,17 +28,15 @@
         android:id="@+id/imageView_ufo"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_below="@+id/button"
+        android:layout_below="@+id/buttonSort"
         android:layout_alignParentStart="true"
         android:contentDescription="@string/description1"
         android:src="@drawable/ufo" />
 
     <android.support.v7.widget.RecyclerView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
         android:id="@+id/rv"
-        android:orientation="horizontal"
-
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
     </android.support.v7.widget.RecyclerView>

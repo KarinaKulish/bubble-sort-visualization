@@ -3,6 +3,7 @@ package com.example.dellpc.sorting2;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -14,19 +15,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by DELL PC on 10.07.2016.
- */
+
 public class MainActivity extends AppCompatActivity {
-    List<Sheep> sheep = new ArrayList<>();
+    private List<Sheep> sheep = new ArrayList<>();
     private RecyclerView rv;
     private RVAdapter adapter;
     private LinearLayoutManager layoutManager;
     private View ufoView;
     private Animation animOne, animThree;
+    private boolean isSwapped;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv.setLayoutManager(layoutManager);
         rv.setHasFixedSize(true);
-        rv.getItemAnimator().setMoveDuration(300);
+        rv.setItemAnimator(new DefaultItemAnimator());
+        rv.getItemAnimator().setMoveDuration(700);
 
         sheep.add(new Sheep(1, "1"));
         sheep.add(new Sheep(2, "2"));
@@ -51,19 +52,20 @@ public class MainActivity extends AppCompatActivity {
         ufoView = findViewById(R.id.imageView_ufo);
         animOne = AnimationUtils.loadAnimation(this, R.anim.animation_one);
         animThree = AnimationUtils.loadAnimation(this, R.anim.animation_three);
+        isSwapped = false;
 
     }
 
     /**
      * Starts sorting animation
      */
-    public void onAnimationImageFour(View v) {
+    public void onAnimationSort(final View v) {
 
-        sortValuesStep(sheep.size() - 1, 0);
+        sortValuesStep(sheep.size() - 1, 0, isSwapped);
 
     }
 
-    private void sortValuesStep(int i, int j) {
+    private void sortValuesStep(int i, int j, boolean isSwapped) {
         if (i == 0) {
             return;
         }
@@ -76,19 +78,25 @@ public class MainActivity extends AppCompatActivity {
             Collections.swap(sheep, j, j + 1);
             swapLeft = j;
             swapRight = j + 1;
+            isSwapped = true;
 
         }
         if ((j == sheep.size() - 2) && (i > 0)) {
             j = 0;
             i--;
+            if (!isSwapped) {
+                i = 0;
+            } else {
+                isSwapped = false;
+            }
         } else if (j < sheep.size() - 2) {
             j++;
         }
-        animateSortStep(swapLeft, swapRight, i, j);
+        animateSortStep(swapLeft, swapRight, i, j, isSwapped);
     }
 
 
-    private void animateSortStep(final int swapLeft, final int swapRight, final int i, final int j) {
+    private void animateSortStep(final int swapLeft, final int swapRight, final int i, final int j, final boolean is_swapped) {
         View leftView = layoutManager.findViewByPosition(j);
         View rightView = layoutManager.findViewByPosition(j + 1);
 
@@ -101,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                 rv.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        animateSortStep(swapLeft, swapRight, i, j);
+                        animateSortStep(swapLeft, swapRight, i, j, is_swapped);
                     }
                 }, 600);
 
@@ -110,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 int leftX = leftView.getLeft();
                 animateUfoMove(leftX);
             }
-
         }
 
         if (swapLeft != -1 && swapRight != -1) {
@@ -118,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         }
         rv.postDelayed(new Runnable() {
             public void run() {
-                sortValuesStep(i, j);
+                sortValuesStep(i, j, is_swapped);
             }
         }, 700);
 
@@ -131,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 .start();
     }
 
-    public void shuffle() {
+    private void shuffle() {
         Collections.shuffle(sheep);
         rv.startAnimation(animThree);
         rv.getAdapter().notifyDataSetChanged();
@@ -141,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onAnimationShuffle(View v) {
+    public void onAnimationShuffle(final View v) {
         shuffle();
     }
 
