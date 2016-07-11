@@ -16,12 +16,10 @@ import java.util.List;
  */
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.SheepViewHolder> {
     public static class SheepViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
         TextView sheepText;
 
         SheepViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
             sheepText = (TextView) itemView.findViewById(R.id.textView);
         }
     }
