@@ -17,7 +17,7 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
-    private List<Sheep> sheep = new ArrayList<>();
+    List<Sheep> sheep = new ArrayList<>();
     private RecyclerView rv;
     private RVAdapter adapter;
     private LinearLayoutManager layoutManager;
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_layout);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         rv = (RecyclerView) findViewById(R.id.rv);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         rv.setLayoutManager(layoutManager);
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void animateSortStep(final int swapLeft, final int swapRight, final int i, final int j, final boolean is_swapped) {
+    private void animateSortStep(final int swapLeft, final int swapRight, final int i, final int j, final boolean isSwapped) {
         View leftView = layoutManager.findViewByPosition(j);
         View rightView = layoutManager.findViewByPosition(j + 1);
 
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 rv.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        animateSortStep(swapLeft, swapRight, i, j, is_swapped);
+                        animateSortStep(swapLeft, swapRight, i, j, isSwapped);
                     }
                 }, 600);
 
@@ -125,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
         }
         rv.postDelayed(new Runnable() {
             public void run() {
-                sortValuesStep(i, j, is_swapped);
+                sortValuesStep(i, j, isSwapped);
             }
         }, 700);
 

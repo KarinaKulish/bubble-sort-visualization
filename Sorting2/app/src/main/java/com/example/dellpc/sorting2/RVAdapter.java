@@ -12,7 +12,6 @@ import java.util.List;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.SheepViewHolder> {
 
     private List<Sheep> sheep;
-
     RVAdapter(List<Sheep> sheep) {
         this.sheep = sheep;
     }
@@ -31,11 +30,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.SheepViewHolder> {
 
     @Override
     public void onBindViewHolder(SheepViewHolder sheepViewHolder, int i) {
-        Sheep sheep1 = sheep.get(i);
+        Sheep sheep1=sheep.get(i);
         sheepViewHolder.sheepText.setText(sheep1.getText());
 
     }
-
     @Override
     public int getItemCount() {
         return sheep.size();
